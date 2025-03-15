@@ -14,4 +14,4 @@ CodePencil 是一款仿 CodePen 的在线代码编辑工具，提供实时代码
 
 ## 开源协议
 
-本项目基于 [MIT License](LICENSE) 开源。
+本项目基于 [Apache-2.0 License](LICENSE) 开源。
