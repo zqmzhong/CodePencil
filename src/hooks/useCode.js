@@ -1,9 +1,11 @@
+import { useDebounce } from 'ahooks';
 import { useState } from 'react';
 
 export function useCode() {
   const [html, setHtml] = useState('');
   const [css, setCss] = useState('');
   const [js, setJs] = useState('');
+  const debouncedJs = useDebounce(js);
 
   const fullCode = `
     <!DOCTYPE html>
@@ -13,7 +15,7 @@ export function useCode() {
       </head>
       <body>
         ${html}
-        <script>${js}</script>
+        <script>${debouncedJs}</script>
       </body>
     </html>
   `;
