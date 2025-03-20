@@ -6,8 +6,8 @@ function App() {
   const { html, setHtml, css, setCss, js, setJs, fullCode } = useCode();
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <div className="grid grid-cols-3 gap-4">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-2 flex flex-col">
+      <div className="flex gap-2 flex-grow">
         <CodeEditor
           title="HTML"
           value={html}
