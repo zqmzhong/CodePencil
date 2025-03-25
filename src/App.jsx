@@ -11,19 +11,19 @@ function App() {
         <CodeEditor
           title="HTML"
           value={html}
-          onChange={(e) => setHtml(e.target.value)}
+          onChange={setHtml}
           placeholder="输入HTML代码..."
         />
         <CodeEditor
           title="CSS"
           value={css}
-          onChange={(e) => setCss(e.target.value)}
+          onChange={setCss}
           placeholder="输入CSS代码..."
         />
         <CodeEditor
           title="JavaScript"
           value={js}
-          onChange={(e) => setJs(e.target.value)}
+          onChange={setJs}
           placeholder="输入JavaScript代码..."
         />
       </div>

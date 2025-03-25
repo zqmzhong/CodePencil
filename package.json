@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "ahooks": "^3.8.4",
+    "prismjs": "^1.30.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-simple-code-editor": "^0.14.1"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.3",

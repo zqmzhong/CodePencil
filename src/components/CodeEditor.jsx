@@ -1,4 +1,16 @@
 import { useState } from 'react';
+import Editor from 'react-simple-code-editor';
+import { highlight, languages } from 'prismjs';
+import 'prismjs/components/prism-markup';
+import 'prismjs/components/prism-css';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/themes/prism-okaidia.css';
+
+const languageMap = {
+  HTML: languages.markup,
+  CSS: languages.css,
+  JavaScript: languages.javascript
+};
 
 export function CodeEditor({ title, value, onChange, placeholder }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -19,12 +31,21 @@ export function CodeEditor({ title, value, onChange, placeholder }) {
         </button>
       </div>
       <div className={`transition-all duration-300 ease-in-out overflow-hidden flex-grow flex flex-col h-full ${isCollapsed ? 'hidden' : 'flex'}`}>
-        <textarea
-          className="w-full h-full flex-grow p-2 border rounded font-mono bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 dark:border-gray-600"
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-        />
+        <div className="relative flex-grow">
+          <Editor
+            value={value}
+            onValueChange={onChange}
+            highlight={code => highlight(code, languageMap[title], title.toLowerCase())}
+            padding={10}
+            className="font-mono text-sm bg-gray-800 text-gray-100 rounded h-full"
+            placeholder={placeholder}
+            style={{
+              fontFamily: '"Fira code", "Fira Mono", monospace',
+              fontSize: 14,
+              minHeight: '100%'
+            }}
+          />
+        </div>
       </div>
     </div>
   );
