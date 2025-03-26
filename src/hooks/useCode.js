@@ -1,10 +1,40 @@
 import { useDebounce } from 'ahooks';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export function useCode() {
-  const [html, setHtml] = useState('');
-  const [css, setCss] = useState('');
-  const [js, setJs] = useState('');
+  const [html, setHtml] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('code-html')) || '';
+    } catch {
+      return '';
+    }
+  });
+  const [css, setCss] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('code-css')) || '';
+    } catch {
+      return '';
+    }
+  });
+  const [js, setJs] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('code-js')) || '';
+    } catch {
+      return '';
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('code-html', JSON.stringify(html));
+  }, [html]);
+
+  useEffect(() => {
+    localStorage.setItem('code-css', JSON.stringify(css));
+  }, [css]);
+
+  useEffect(() => {
+    localStorage.setItem('code-js', JSON.stringify(js));
+  }, [js]);
   const debouncedJs = useDebounce(js);
 
   const fullCode = `
@@ -30,3 +60,4 @@ export function useCode() {
     fullCode
   };
 }
+
