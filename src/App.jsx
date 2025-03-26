@@ -1,12 +1,32 @@
+import { useState } from 'react';
 import { useCode } from './hooks/useCode';
 import { CodeEditor } from './components/CodeEditor';
 import { Preview } from './components/Preview';
+import { Toast } from './components/Toast';
 
 function App() {
-  const { html, setHtml, css, setCss, js, setJs, fullCode } = useCode();
+  const { html, setHtml, css, setCss, js, setJs, fullCode, generateShareLink } = useCode();
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState('info');
+  const [showToast, setShowToast] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-2 flex flex-col">
+    <div className="relative min-h-screen bg-gray-100 dark:bg-gray-900 p-2 flex flex-col">
+      <div className="flex justify-end mb-2">
+        <button
+          type="button"
+          onClick={() => {
+            const link = generateShareLink();
+            navigator.clipboard.writeText(link);
+            setToastType('success');
+            setToastMessage('分享链接已复制到剪贴板');
+            setShowToast(true);
+          }}
+          className="btn btn-primary"
+        >
+          分享代码
+        </button>
+      </div>
       <div className="flex gap-2 flex-grow">
         <CodeEditor
           title="HTML"
@@ -29,6 +49,8 @@ function App() {
       </div>
 
       <Preview code={fullCode} />
+
+      <Toast visible={showToast} message={toastMessage} type={toastType} onClose={() => setShowToast(false)} />
     </div>
   );
 }

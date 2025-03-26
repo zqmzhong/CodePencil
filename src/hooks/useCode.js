@@ -4,6 +4,13 @@ import { useState, useEffect } from 'react';
 export function useCode() {
   const [html, setHtml] = useState(() => {
     try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sharedCode = urlParams.get('code');
+      if (sharedCode) {
+        const decoded = atob(sharedCode);
+        const { h, c, j } = JSON.parse(decoded);
+        return h || JSON.parse(localStorage.getItem('code-html')) || '';
+      }
       return JSON.parse(localStorage.getItem('code-html')) || '';
     } catch {
       return '';
@@ -11,6 +18,13 @@ export function useCode() {
   });
   const [css, setCss] = useState(() => {
     try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sharedCode = urlParams.get('code');
+      if (sharedCode) {
+        const decoded = atob(sharedCode);
+        const { h, c, j } = JSON.parse(decoded);
+        return c || JSON.parse(localStorage.getItem('code-css')) || '';
+      }
       return JSON.parse(localStorage.getItem('code-css')) || '';
     } catch {
       return '';
@@ -18,6 +32,13 @@ export function useCode() {
   });
   const [js, setJs] = useState(() => {
     try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sharedCode = urlParams.get('code');
+      if (sharedCode) {
+        const decoded = atob(sharedCode);
+        const { h, c, j } = JSON.parse(decoded);
+        return j || JSON.parse(localStorage.getItem('code-js')) || '';
+      }
       return JSON.parse(localStorage.getItem('code-js')) || '';
     } catch {
       return '';
@@ -50,6 +71,12 @@ export function useCode() {
     </html>
   `;
 
+  const generateShareLink = () => {
+    const codeData = { h: html, c: css, j: js };
+    const encoded = btoa(JSON.stringify(codeData));
+    return `${window.location.origin}${window.location.pathname}?code=${encoded}`;
+  };
+
   return {
     html,
     setHtml,
@@ -57,7 +84,8 @@ export function useCode() {
     setCss,
     js,
     setJs,
-    fullCode
+    fullCode,
+    generateShareLink
   };
 }
 
