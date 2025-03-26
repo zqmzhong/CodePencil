@@ -37,13 +37,8 @@ export function CodeEditor({ title, value, onChange, placeholder }) {
             onValueChange={onChange}
             highlight={code => highlight(code, languageMap[title], title.toLowerCase())}
             padding={10}
-            className="font-mono text-sm bg-gray-800 text-gray-100 rounded h-full"
+            className="font-mono text-sm bg-gray-800 text-gray-100 rounded h-full border border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             placeholder={placeholder}
-            style={{
-              fontFamily: '"Fira code", "Fira Mono", monospace',
-              fontSize: 14,
-              minHeight: '100%'
-            }}
           />
         </div>
       </div>
