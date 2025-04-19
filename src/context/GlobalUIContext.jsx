@@ -19,7 +19,7 @@ export const GlobalUIProvider = ({ children }) => {
     
     setTimeout(() => {
       setToast(prev => ({ ...prev, visible: false }));
-    }, options.duration || 1000);
+    }, options.duration || 3000);
   };
 
   return (

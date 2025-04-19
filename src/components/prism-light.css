@@ -1,0 +1,115 @@
+/**
+ * 亮色模式下的 Prism.js 主题
+ * 基于 prism.js default theme
+ */
+
+.light-theme code[class*="language-"],
+.light-theme pre[class*="language-"] {
+  color: #333;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 1em;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+/* 为亮色模式添加一个类，我们将在编辑器容器上添加这个类 */
+[data-theme="light"] .prism-editor-wrapper {
+  --token-comment: #6a9955;
+  --token-punctuation: #333;
+  --token-property: #0070c1;
+  --token-selector: #d7ba7d;
+  --token-operator: #000000;
+  --token-atrule: #0070c1;
+  --token-keyword: #0000ff;
+  --token-function: #795e26;
+  --token-regex: #d16969;
+  --token-string: #a31515;
+  --token-variable: #001080;
+  --token-constant: #0070c1;
+  --token-boolean: #0000ff;
+  --token-number: #098658;
+  --token-symbol: #0070c1;
+  --token-builtin: #0070c1;
+  --token-attr-name: #264f78;
+  --token-attr-value: #a31515;
+}
+
+[data-theme="light"] .token.comment,
+[data-theme="light"] .token.prolog,
+[data-theme="light"] .token.doctype,
+[data-theme="light"] .token.cdata {
+  color: var(--token-comment);
+}
+
+[data-theme="light"] .token.punctuation {
+  color: var(--token-punctuation);
+}
+
+[data-theme="light"] .token.property,
+[data-theme="light"] .token.tag,
+[data-theme="light"] .token.boolean,
+[data-theme="light"] .token.number,
+[data-theme="light"] .token.constant,
+[data-theme="light"] .token.symbol,
+[data-theme="light"] .token.deleted {
+  color: var(--token-property);
+}
+
+[data-theme="light"] .token.selector,
+[data-theme="light"] .token.attr-name,
+[data-theme="light"] .token.string,
+[data-theme="light"] .token.char,
+[data-theme="light"] .token.builtin,
+[data-theme="light"] .token.inserted {
+  color: var(--token-string);
+}
+
+[data-theme="light"] .token.operator,
+[data-theme="light"] .token.entity,
+[data-theme="light"] .token.url,
+[data-theme="light"] .language-css .token.string,
+[data-theme="light"] .style .token.string {
+  color: var(--token-operator);
+}
+
+[data-theme="light"] .token.atrule,
+[data-theme="light"] .token.attr-value,
+[data-theme="light"] .token.keyword {
+  color: var(--token-keyword);
+}
+
+[data-theme="light"] .token.function,
+[data-theme="light"] .token.class-name {
+  color: var(--token-function);
+}
+
+[data-theme="light"] .token.regex,
+[data-theme="light"] .token.important,
+[data-theme="light"] .token.variable {
+  color: var(--token-variable);
+}
+
+[data-theme="light"] .token.important,
+[data-theme="light"] .token.bold {
+  font-weight: bold;
+}
+
+[data-theme="light"] .token.italic {
+  font-style: italic;
+}
+
+[data-theme="light"] .token.entity {
+  cursor: help;
+}

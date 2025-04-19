@@ -62,7 +62,16 @@ export function useCode() {
     <!DOCTYPE html>
     <html>
       <head>
-        <style>${css}</style>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+          body {
+            margin: 0;
+            padding: 16px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          }
+          ${css}
+        </style>
       </head>
       <body>
         ${html}
