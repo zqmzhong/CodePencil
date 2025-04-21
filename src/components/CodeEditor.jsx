@@ -59,11 +59,16 @@ export function CodeEditor({ title, value, onChange, placeholder, icon }) {
   return (
     <div
       ref={editorRef}
-      className={`${isCollapsed ? `${headerClass} w-14 h-full flex-none flex flex-col items-center shadow-md` : 'card h-full flex-1 flex flex-col bg-base-100 editor-container shadow-md rounded-xl themed-element'} transition-all duration-500 ease-in-out overflow-hidden relative ${isAnimating ? 'pointer-events-none' : ''}`}>
+      className={
+        isCollapsed
+          ? `card h-full w-10 flex-none flex flex-col ${headerClass} shadow-md rounded-xl overflow-hidden relative transition-none ${isAnimating ? 'pointer-events-none' : ''}`
+          : `card h-full flex-1 flex flex-col bg-base-100 editor-container shadow-md rounded-xl themed-element overflow-hidden relative transition-[width] duration-500 ease-in-out ${isAnimating ? 'pointer-events-none' : ''}`
+      }
+    >
       {/* 添加一个额外的背景层，确保圆角正确显示 */}
       {!isCollapsed && <div className="absolute inset-0 bg-base-200 -z-10 themed-element" />}
 
-      <div className={`${headerClass} text-white px-2 py-1 flex items-center justify-between w-full`}>
+      <div className={`${headerClass} ${isCollapsed ? 'h-full' : 'h-10'} text-white p-2 flex items-center justify-between w-full transition-none`}>
         <div className="flex items-center gap-1">
           {isCollapsed ? (
             <div className="font-bold text-xs [writing-mode:vertical-lr] py-1 text-center w-full">{title}</div>
@@ -75,50 +80,44 @@ export function CodeEditor({ title, value, onChange, placeholder, icon }) {
           )}
         </div>
         {!isCollapsed && (
-          <div className="flex gap-1">
-            <button
-              type="button"
-              onClick={() => {
-                setIsAnimating(true);
-                setTimeout(() => {
-                  setIsCollapsed(!isCollapsed);
-                  setTimeout(() => setIsAnimating(false), 500);
-                }, 50);
-              }}
-              className="btn btn-circle btn-ghost btn-xs text-white hover:bg-white/20"
-            >
-              <span>
-                ▶
-              </span>
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => {
+              setIsAnimating(true);
+              setTimeout(() => {
+                setIsCollapsed(!isCollapsed);
+                setTimeout(() => setIsAnimating(false), 500);
+              }, 50);
+            }}
+            className="p-1 rounded-md text-white focus:outline-none focus:ring-0 transition-colors hover:bg-white/20 active:bg-white/30"
+          >
+            <span className="text-lg">▼</span>
+          </button>
         )}
       </div>
 
-      {!isCollapsed && (
-        <div className="card-body p-0 flex-1 bg-base-300 themed-element">
-          <div className={`h-full overflow-auto flex-1 prism-editor-wrapper ${theme === 'dark' ? 'dark-theme' : 'light-theme'}`}>
-            <Editor
-              value={value}
-              onValueChange={onChange}
-              highlight={code => {
-                // 根据当前主题应用不同的高亮类
-                const highlightedCode = highlight(code, languageMap[title], title.toLowerCase());
-                return highlightedCode;
-              }}
-              padding={8}
-              style={{
-                height: '100%',
-                backgroundColor: 'var(--editor-bg)',
-                color: 'var(--editor-text)',
-              }}
-              className="h-full focus:outline-none"
-              placeholder={placeholder}
-              textareaClassName="focus:outline-none"
-            />
-          </div>
+      <div className={`card-body p-0 overflow-auto flex-1 bg-base-300 themed-element ${isCollapsed ? 'hidden' : 'flex'}`}>
+        <div className={`h-full overflow-auto flex-1 prism-editor-wrapper ${theme === 'dark' ? 'dark-theme' : 'light-theme'}`}>
+          <Editor
+            value={value}
+            onValueChange={onChange}
+            highlight={code => {
+              // 根据当前主题应用不同的高亮类
+              const highlightedCode = highlight(code, languageMap[title], title.toLowerCase());
+              return highlightedCode;
+            }}
+            padding={8}
+            style={{
+              height: '100%',
+              backgroundColor: 'var(--editor-bg)',
+              color: 'var(--editor-text)',
+            }}
+            className="h-full focus:outline-none"
+            placeholder={placeholder}
+            textareaClassName="focus:outline-none"
+          />
         </div>
-      )}
+      </div>
 
       {isCollapsed && (
         <button
@@ -130,11 +129,9 @@ export function CodeEditor({ title, value, onChange, placeholder, icon }) {
               setTimeout(() => setIsAnimating(false), 500);
             }, 50);
           }}
-          className="mt-auto mb-2 btn btn-circle btn-xs text-white bg-white/20 hover:bg-white/30"
+          className="p-1 rounded-md text-white focus:outline-none focus:ring-0 transition-colors hover:bg-white/20 active:bg-white/30 mt-auto mb-2"
         >
-          <span>
-            ◀
-          </span>
+          <span className="text-lg">▲</span>
         </button>
       )}
     </div>
