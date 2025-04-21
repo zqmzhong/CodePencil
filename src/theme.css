@@ -1,0 +1,81 @@
+/* Theme variables for consistent styling across components */
+:root {
+  /* Base colors */
+  --bg-base-100: var(--b1);
+  --bg-base-200: var(--b2);
+  --bg-base-300: var(--b3);
+  
+  /* Border colors */
+  --border-color: var(--b3);
+  --border-radius: 0.75rem; /* 12px - rounded-xl */
+  
+  /* Editor colors */
+  --editor-bg: #ffffff;
+  --editor-text: #333333;
+  
+  /* Transition settings */
+  --theme-transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark theme overrides */
+[data-theme="dark"] {
+  /* Border colors */
+  --border-color: #4b5563; /* Equivalent to border-gray-600 */
+  
+  /* Editor colors */
+  --editor-bg: #1d1e22;
+  --editor-text: #f8f8f2;
+}
+
+/* Apply transitions to all themed elements */
+.themed-element {
+  transition: var(--theme-transition);
+}
+
+/* Card styling with theme variables */
+.themed-card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: var(--theme-transition);
+}
+
+/* Editor container styling */
+.editor-container {
+  background-color: var(--bg-base-100);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: var(--theme-transition);
+}
+
+/* Editor header styling for different languages */
+.editor-header-html {
+  background-color: theme('colors.red.500');
+}
+
+[data-theme="dark"] .editor-header-html {
+  background-color: theme('colors.red.600');
+}
+
+.editor-header-css {
+  background-color: theme('colors.blue.500');
+}
+
+[data-theme="dark"] .editor-header-css {
+  background-color: theme('colors.blue.600');
+}
+
+.editor-header-javascript {
+  background-color: theme('colors.yellow.500');
+}
+
+[data-theme="dark"] .editor-header-javascript {
+  background-color: theme('colors.yellow.600');
+}
+
+/* Preview container styling */
+.preview-container {
+  background-color: var(--bg-base-100);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: var(--theme-transition);
+}

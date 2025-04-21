@@ -40,10 +40,11 @@ export function Preview({ code, renderPreview }) {
   const previewElement = (
     <div
       ref={previewRef}
-      className={`card transition-all duration-500 ease-in-out h-full flex flex-col ${isCollapsed ? 'h-10' : ''} ${isFullscreen ? 'fixed inset-0 z-50' : ''} flex-1 bg-base-100 border ${theme === 'dark' ? 'border-gray-600' : 'border-base-300'} rounded-xl shadow-md ${isAnimating ? 'pointer-events-none' : ''}`}>
+      className={`card transition-all duration-500 ease-in-out h-full flex flex-col ${isCollapsed ? 'h-10' : ''} ${isFullscreen ? 'fixed inset-0 z-50' : ''} flex-1 bg-base-100 preview-container shadow-md themed-element ${isAnimating ? 'pointer-events-none' : ''} rounded-xl overflow-hidden`}
+    >
       {/* 添加一个额外的背景层，确保圆角正确显示 */}
-      {!isCollapsed && <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-base-200' : 'bg-white'} rounded-xl -z-10`} />}
-      <div className="px-2 py-1 flex items-center justify-between border-b-0 bg-base-200 rounded-t-xl">
+      {!isCollapsed && <div className="absolute inset-0 bg-base-200 -z-10 themed-element" />}
+      <div className="px-2 py-1 flex items-center justify-between border-b-0 bg-base-200">
         <div className="flex items-center gap-1">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" role="img">
             <title>预览图标</title>
@@ -76,18 +77,18 @@ export function Preview({ code, renderPreview }) {
           </button>
         </div>
       </div>
-      <div className={`card-body p-0 overflow-auto flex-1 ${isCollapsed ? 'hidden' : 'block'} bg-base-100 rounded-b-xl`}>
+      <div className={`card-body p-0 overflow-auto flex-1 ${isCollapsed ? 'hidden' : 'block'} bg-base-100 themed-element`}>
         <div className="h-full relative">
           {/* 深色模式下添加一个覆盖层 */}
           {theme === 'dark' && (
             <div
-              className="absolute inset-0 bg-base-300 z-0 rounded-b-xl"
+              className="absolute inset-0 bg-base-300 z-0 themed-element"
               style={{ pointerEvents: 'none' }}
             />
           )}
 
           <iframe
-            className="w-full h-full border-none relative z-10 rounded-b-xl"
+            className="w-full h-full border-none relative z-10"
             srcDoc={code}
             sandbox="allow-scripts allow-same-origin"
             title="实时预览"

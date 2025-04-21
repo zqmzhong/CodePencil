@@ -46,9 +46,9 @@ function App() {
   };
 
   return (
-    <div data-theme={theme} className="h-screen bg-base-300 flex flex-col overflow-hidden">
+    <div data-theme={theme} className="h-screen bg-base-300 flex flex-col overflow-hidden themed-element">
       {/* Header/Navbar */}
-      <div className="flex items-center justify-between bg-base-100 shadow-sm px-4 py-2">
+      <div className="flex items-center justify-between bg-base-100 shadow-sm px-4 py-2 themed-element">
         <div className="text-xl font-bold text-primary">CodePencil</div>
         <div className="flex gap-2">
           <button
@@ -84,7 +84,7 @@ function App() {
       </div>
 
       {/* Main Content and Preview in flex layout */}
-      <div className="flex flex-col gap-3 p-3 flex-1 overflow-hidden">
+      <div className="flex flex-col gap-3 px-3 pt-2 pb-0 flex-1 overflow-hidden themed-element">
         <div className="flex flex-col gap-2 flex-1">
           <Preview
             code={generatePreviewCode(fullCode, theme === 'dark')}
@@ -126,7 +126,7 @@ function App() {
       </div>
 
       {/* Footer */}
-      <footer className="text-center py-1 text-xs bg-base-300 text-base-content">
+      <footer className="text-center py-1 text-xs bg-base-300 text-base-content themed-element">
         <p className="text-xs">Made with ❤️ using React, Tailwind CSS & DaisyUI</p>
       </footer>
     </div>

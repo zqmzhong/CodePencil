@@ -14,14 +14,14 @@ const languageMap = {
   JavaScript: languages.javascript
 };
 
-const getEditorHeaderColor = (title, isDark) => {
+const getEditorHeaderClass = (title) => {
   switch (title) {
     case 'HTML':
-      return isDark ? 'bg-red-600' : 'bg-red-500';
+      return 'editor-header-html';
     case 'CSS':
-      return isDark ? 'bg-blue-600' : 'bg-blue-500';
+      return 'editor-header-css';
     case 'JavaScript':
-      return isDark ? 'bg-yellow-600' : 'bg-yellow-500';
+      return 'editor-header-javascript';
     default:
       return 'bg-primary';
   }
@@ -32,7 +32,7 @@ export function CodeEditor({ title, value, onChange, placeholder, icon }) {
   const [isAnimating, setIsAnimating] = useState(false);
   const [theme, setTheme] = useState('light');
   const editorRef = useRef(null);
-  const headerColor = getEditorHeaderColor(title, theme === 'dark');
+  const headerClass = getEditorHeaderClass(title);
 
   // 检测当前主题
   useEffect(() => {
@@ -54,24 +54,16 @@ export function CodeEditor({ title, value, onChange, placeholder, icon }) {
     return () => observer.disconnect();
   }, []);
 
-  // 当主题变化时更新标题栏颜色
-  useEffect(() => {
-    // 更新标题栏颜色
-    const newHeaderColor = getEditorHeaderColor(title, theme === 'dark');
-    if (newHeaderColor !== headerColor) {
-      // 强制重新渲染
-      setIsCollapsed(isCollapsed => isCollapsed);
-    }
-  }, [theme, title, headerColor]);
+  // 不再需要监听主题变化来更新标题栏颜色，因为我们使用CSS变量
 
   return (
     <div
       ref={editorRef}
-      className={`${isCollapsed ? `${headerColor} w-14 h-full flex-none flex flex-col items-center shadow-md` : `card h-full flex-1 flex flex-col bg-base-100 border ${theme === 'dark' ? 'border-gray-600' : 'border-base-300'} rounded-xl shadow-md`} transition-all duration-500 ease-in-out overflow-hidden relative ${isAnimating ? 'pointer-events-none' : ''}`}>
+      className={`${isCollapsed ? `${headerClass} w-14 h-full flex-none flex flex-col items-center shadow-md` : 'card h-full flex-1 flex flex-col bg-base-100 editor-container shadow-md rounded-xl themed-element'} transition-all duration-500 ease-in-out overflow-hidden relative ${isAnimating ? 'pointer-events-none' : ''}`}>
       {/* 添加一个额外的背景层，确保圆角正确显示 */}
-      {!isCollapsed && <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-base-200' : 'bg-white'} rounded-xl -z-10`} />}
+      {!isCollapsed && <div className="absolute inset-0 bg-base-200 -z-10 themed-element" />}
 
-      <div className={`${headerColor} text-white px-2 py-1 flex items-center justify-between w-full rounded-t-xl`}>
+      <div className={`${headerClass} text-white px-2 py-1 flex items-center justify-between w-full`}>
         <div className="flex items-center gap-1">
           {isCollapsed ? (
             <div className="font-bold text-xs [writing-mode:vertical-lr] py-1 text-center w-full">{title}</div>
@@ -104,7 +96,7 @@ export function CodeEditor({ title, value, onChange, placeholder, icon }) {
       </div>
 
       {!isCollapsed && (
-        <div className={`card-body p-0 flex-1 ${theme === 'dark' ? 'bg-base-300' : 'bg-base-100'} rounded-b-xl`}>
+        <div className="card-body p-0 flex-1 bg-base-300 themed-element">
           <div className={`h-full overflow-auto flex-1 prism-editor-wrapper ${theme === 'dark' ? 'dark-theme' : 'light-theme'}`}>
             <Editor
               value={value}
@@ -117,8 +109,8 @@ export function CodeEditor({ title, value, onChange, placeholder, icon }) {
               padding={8}
               style={{
                 height: '100%',
-                backgroundColor: theme === 'dark' ? '#1d1e22' : '#ffffff',
-                color: theme === 'dark' ? '#f8f8f2' : '#333333',
+                backgroundColor: 'var(--editor-bg)',
+                color: 'var(--editor-text)',
               }}
               className="h-full focus:outline-none"
               placeholder={placeholder}
